@@ -23,9 +23,10 @@ public class Client
            //Echoing string
 	    System.out.println("Enter a string");
             Scanner myObj = new Scanner(System.in);
-            String str = myObj.nextLine();
+            String msg = myObj.nextLine();
 	    PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
-	    out.println(str);
+	    out.println(msg);
+            System.out.println(Dto.stringToBinary(msg));
 	    BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
  	    String reply = in.readLine();
 	    System.out.println(reply);
