@@ -25,14 +25,17 @@ public class Server
 		System.out.println("Connection Established");
 
  		//Echoing string at server side
-   		BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
- 		String str=in.readLine();
-		System.out.println(str);
+   		//Receiving from client side
+                BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+ 		String msg=in.readLine();
+		System.out.println("Encoded string received from client "+msg);
+                System.out.println("After decoding and error removal message is "+Dto.binaryToString(msg));
+                //Replying to client
 		System.out.println("Enter the reply");
 		Scanner myObj = new Scanner(System.in);
                 String reply = myObj.nextLine();		
 		PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
-	        out.println(reply);
+	        out.println(Dto.stringToBinary(reply));
 	    }
 	    catch(Exception e){
 	        e.printStackTrace();
