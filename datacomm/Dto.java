@@ -5,6 +5,7 @@
  */
 package datacomm;
 import java.lang.Math;
+import java.util.Random;
 /**
  *
  * @author itisha
@@ -28,7 +29,7 @@ public class Dto {
     }
     
     private static int binaryToInt(String str){
-   char[] numbers = str.toCharArray();
+    char[] numbers = str.toCharArray();
     int result = 0;
     for(int i=numbers.length - 1; i>=0; i--)
         if(numbers[i]=='1')
@@ -41,10 +42,31 @@ public class Dto {
     for(int i=0;i<str.length();i=i+8){
     String temp=str.substring(i, i+8);
     int acode = binaryToInt(temp);
-    //System.out.println(temp+" "+acode);
     char c=(char)acode;
     msg+=Character.toString(c);
     }
     return msg;
+    }
+    
+    public static String errorGenerator(String str){
+        String modified_string="";
+        Random rand = new Random();
+        int rand_int = rand.nextInt(str.length());
+        //System.out.println(rand_int);
+        for(int i=0;i<str.length();i++)
+        {
+            if(i==rand_int)
+            {
+                if(str.charAt(i)=='0')
+                    modified_string += "1";
+                else
+                    modified_string += "0";
+            }
+            else
+            {
+                modified_string += str.charAt(i);
+            }
+        }
+        return modified_string;
     }
 }
