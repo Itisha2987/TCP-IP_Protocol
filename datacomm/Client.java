@@ -28,15 +28,15 @@ public class Client
             String msg = myObj.nextLine();
 	    PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
             String binaryString = Dto.stringToBinary(msg);
-            System.out.println("Encoded message being sent to server is "+binaryString);
+            System.out.println("Encoded message being sent to server is: "+binaryString);
            // System.out.println(Dto.binaryToString(binaryString));
             out.println(binaryString);
 	    
             //Receiving reply from server
             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
  	    String reply = in.readLine();
-	    System.out.println("reply sent from server "+reply);
-            System.out.println("Decoded reply "+Dto.binaryToString(reply));
+	    System.out.println("reply sent from server " + reply);
+            System.out.println("Decoded reply: "+Dto.binaryToString(reply));
 	    }
 	    catch(Exception e){
 	        e.printStackTrace();
