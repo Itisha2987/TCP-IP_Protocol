@@ -69,4 +69,31 @@ public class Dto {
         }
         return modified_string;
     }
+    
+    public static String headGenerator(String str){
+        Random r = new Random();
+            int n = r.nextInt(16);
+            String s = Integer.toBinaryString(n);
+            while(s.length()<4)
+                s = "0"+s;
+            String ans="";
+            for(int i=0;i<str.length();i+=16)
+            {
+                ans += s + str.substring(i,Math.min(i+16, str.length()));
+            }
+            return ans;
+    }
+    
+    public static String removeHead(String str){
+        String refined_msg="";
+        System.out.println("The data received from the clients with data-link layer head in packets is: ");
+                for(int i=0;i<str.length();i+=20)
+                {
+                    String temp = str.substring(i,Math.min(i+20,str.length()));
+                    System.out.println(temp + " ");
+                    refined_msg += str.substring(i+4,Math.min(i+20,str.length()));
+                    //msg = msg.substring(4);
+                }
+                return refined_msg;
+    }
 }

@@ -28,9 +28,12 @@ public class Client
             String msg = myObj.nextLine();
 	    PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
             String binaryString = Dto.stringToBinary(msg);
-            System.out.println("Encoded message being sent to server is: "+binaryString);
-           // System.out.println(Dto.binaryToString(binaryString));
-            out.println(binaryString);
+            System.out.println("Encoded message generated is: " + binaryString);
+            
+            //Adding 4-bit header of the data-link layer
+            String finalString = Dto.headGenerator(binaryString);
+            System.out.println("Encoded message sent to the server is: " + finalString);
+            out.println(finalString);
 	    
             //Receiving reply from server
             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
