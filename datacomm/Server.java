@@ -29,9 +29,9 @@ public class Server
                 BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
  		String msg=in.readLine();
                 String refined_msg=Dto.removeHead(msg);
-                String error_generated_string = Dto.errorGenerator(refined_msg);
-		System.out.println("Encoded string received from client after removing header bits " + error_generated_string);
-                System.out.println("Before decoding and error removal message is "+ Dto.binaryToString(error_generated_string));
+              //  String error_generated_string = Dto.errorGenerator(refined_msg);
+		System.out.println("Encoded string received from client after removing header bits " + refined_msg);
+                System.out.println("Decoded message before error removal is "+ Dto.binaryToString(refined_msg));
                 System.out.println("After decoding and error removal message is "+ Dto.binaryToString(refined_msg));
                 //Replying to client
 		System.out.println("Enter the reply");

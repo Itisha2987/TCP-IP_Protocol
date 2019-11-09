@@ -19,7 +19,7 @@ public class Client
 	    try{
 		System.out.println("Client Started");
 		System.out.println("Sending Client Request");
-	    Socket soc = new Socket("localhost",9806);
+	        Socket soc = new Socket("localhost",9806);
           
             //Echoing string
             //Sending message to server
@@ -30,8 +30,11 @@ public class Client
             String binaryString = Dto.stringToBinary(msg);
             System.out.println("Encoded message generated is: " + binaryString);
             
+            //Genarting error in the encoded message
+             String error_generated_string = Dto.errorGenerator(binaryString);
+             
             //Adding 4-bit header of the data-link layer
-            String finalString = Dto.headGenerator(binaryString);
+            String finalString = Dto.headGenerator(error_generated_string);
             System.out.println("Encoded message sent to the server is: " + finalString);
             out.println(finalString);
 	    

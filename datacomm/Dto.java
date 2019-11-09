@@ -12,7 +12,7 @@ import java.util.Random;
  */
 
 public class Dto {
-  
+    
     public static String stringToBinary(String str){
         String bString="";
         int i;
@@ -47,7 +47,7 @@ public class Dto {
     }
     return msg;
     }
-    
+    //generates error of one bit
     public static String errorGenerator(String str){
         String modified_string="";
         Random rand = new Random();
@@ -86,14 +86,20 @@ public class Dto {
     
     public static String removeHead(String str){
         String refined_msg="";
+        int n=1;
         System.out.println("The data received from the clients with data-link layer head in packets is: ");
                 for(int i=0;i<str.length();i+=20)
                 {
                     String temp = str.substring(i,Math.min(i+20,str.length()));
-                    System.out.println(temp + " ");
+                    System.out.println("Packet "+n+" is "+temp + " ");
                     refined_msg += str.substring(i+4,Math.min(i+20,str.length()));
+                    n++;
                     //msg = msg.substring(4);
                 }
                 return refined_msg;
     }
+    
+   
+    
+    
 }
