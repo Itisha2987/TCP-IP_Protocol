@@ -20,9 +20,10 @@ public class TCPClient {
     DataOutputStream outStream=new DataOutputStream(socket.getOutputStream());
     BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
     String clientMessage="",serverMessage="";
-    while(!clientMessage.equals("bye")){
-      System.out.println("Enter your message :");
+    do{
+      System.out.println("Enter your message (Enter 'bye' to exit the connection from server) :");
       clientMessage=br.readLine();
+      if(clientMessage.equals("bye"))break;
       
       Scanner myObj = new Scanner(System.in);
        String binaryString = Dto.stringToBinary(clientMessage);
@@ -49,7 +50,7 @@ public class TCPClient {
       outStream.flush();
       serverMessage=inStream.readUTF();
       System.out.println(serverMessage);
-    }
+    }while(!clientMessage.equals("bye"));
     outStream.close();
     outStream.close();
     socket.close();

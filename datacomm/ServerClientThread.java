@@ -29,25 +29,27 @@ class ServerClientThread extends Thread {
       String clientMessage="", serverMessage="";
       while(true){
         clientMessage=inStream.readUTF();
-        System.out.println("Message from Client-" +clientNo+ "is : "+clientMessage);
+        System.out.println("Message from Client - " +clientNo+ " is : "+clientMessage);
       //  squre = Integer.parseInt(clientMessage) * Integer.parseInt(clientMessage);
        
       
        String refined_msg=Dto.removeHead(clientMessage);
               //  String error_generated_string = Dto.errorGenerator(refined_msg);
- System.out.println("Encoded string received from client after removing header bits " + refined_msg);
+                  System.out.println("Encoded string received from client after removing header bits " + refined_msg);
              //   System.out.println("Decoded message before error removal is "+ Dto.binaryToString(refined_msg));
              //   System.out.println("After decoding and error removal message is "+ Dto.binaryToString(refined_msg));
                 //Replying to client
 		boolean error_flag = CRC.isErrorPresent(refined_msg);
                 if(error_flag){
-                    serverMessage = "Error detected!! Send message again";		
+                 System.out.println("The server detected error in message sent from Client - "+ clientNo);
+                 serverMessage = "Error detected!! Send message again";		
 		 outStream.writeUTF(serverMessage);
                  outStream.flush();
                 }
                 else{
                     String actual_msg = CRC.removeCRCCode(refined_msg);
-                    System.out.println("After decoding and error detection message is "+ Dto.binaryToString(actual_msg));
+                    System.out.println("The message sent from Client - "+ clientNo +" does not contain error");
+                    System.out.println("After decoding and error checking message is "+ Dto.binaryToString(actual_msg));
                     if(clientMessage.equals("bye")){
                     break;
                     }
@@ -72,7 +74,7 @@ class ServerClientThread extends Thread {
     }catch(Exception ex){
      // System.out.println(ex);
     }finally{
-      System.out.println("Client -" + clientNo + " exit!! ");
+      System.out.println("Client - " + clientNo + " exit!! ");
     }
   }
 }
