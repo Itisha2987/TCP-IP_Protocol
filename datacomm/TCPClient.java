@@ -9,25 +9,23 @@ package datacomm;
  *
  * @author itisha
  */
-import java.net.Socket;
-import java.util.Scanner;
+import java.net.*;
 import java.io.*;
-
-public class Client
-{
-	/*public static void main(String[] args) {
-	    try{
-		System.out.println("Client Started");
-		System.out.println("Sending Client Request");
-	        Socket soc = new Socket("localhost",9806);
-          
-            //Echoing string
-            //Sending message to server
-	    System.out.println("Enter the message....");
-            Scanner myObj = new Scanner(System.in);
-            String msg = myObj.nextLine();
-	    PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
-            String binaryString = Dto.stringToBinary(msg);
+import java.util.Scanner;
+public class TCPClient {
+  public static void main(String[] args) throws Exception {
+  try{
+    Socket socket=new Socket("127.0.0.1",8888);
+    DataInputStream inStream=new DataInputStream(socket.getInputStream());
+    DataOutputStream outStream=new DataOutputStream(socket.getOutputStream());
+    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    String clientMessage="",serverMessage="";
+    while(!clientMessage.equals("bye")){
+      System.out.println("Enter your message :");
+      clientMessage=br.readLine();
+      
+      Scanner myObj = new Scanner(System.in);
+       String binaryString = Dto.stringToBinary(clientMessage);
             System.out.println("Encoded message generated is: " + binaryString);
           
             //Genarting error in the encoded message
@@ -45,16 +43,18 @@ public class Client
             //Adding 4-bit header of the data-link layer
             String finalString = Dto.headGenerator(crc_generated_string);
             System.out.println("Encoded message sent to the server is: " + finalString);
-            out.println(finalString);
-	    
-            //Receiving reply from server
-            BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
- 	    String reply = in.readLine();
-	    System.out.println("reply sent from server " + reply);
-            System.out.println("Decoded reply: "+Dto.binaryToString(reply));
-	    }
-	    catch(Exception e){
-	        e.printStackTrace();
-	    }
-	}*/
+      
+      
+      outStream.writeUTF(finalString);
+      outStream.flush();
+      serverMessage=inStream.readUTF();
+      System.out.println(serverMessage);
+    }
+    outStream.close();
+    outStream.close();
+    socket.close();
+  }catch(Exception e){
+   // System.out.println(e);
+  }
+  }
 }

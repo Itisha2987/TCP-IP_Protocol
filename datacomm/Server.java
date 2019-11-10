@@ -16,7 +16,7 @@ import java.io.*;
 
 public class Server
 {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 	    try{
 		System.out.println("Server Started");
 		System.out.println("Waiting for Client Request");
@@ -52,6 +52,6 @@ public class Server
 	    catch(Exception e){
 	        e.printStackTrace();
 	    }
-	}
+	}*/
 }
 
