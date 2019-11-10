@@ -31,9 +31,9 @@ class ServerClientThread extends Thread {
         clientMessage=inStream.readUTF();
         System.out.println("Message from Client - " +clientNo+ " is : "+clientMessage);
       //  squre = Integer.parseInt(clientMessage) * Integer.parseInt(clientMessage);
-       
-      
-       String refined_msg=Dto.removeHead(clientMessage);
+      String decoded_msg = Dto.ManchesterDecoder(clientMessage);
+      System.out.println("Message received from client after decoding the scheme is - " + decoded_msg);
+       String refined_msg=Dto.removeHead(decoded_msg);
               //  String error_generated_string = Dto.errorGenerator(refined_msg);
                   System.out.println("Encoded string received from client after removing header bits " + refined_msg);
              //   System.out.println("Decoded message before error removal is "+ Dto.binaryToString(refined_msg));
@@ -49,7 +49,7 @@ class ServerClientThread extends Thread {
                 else{
                     String actual_msg = CRC.removeCRCCode(refined_msg);
                     System.out.println("The message sent from Client - "+ clientNo +" does not contain error");
-                    System.out.println("After decoding and error checking message is "+ Dto.binaryToString(actual_msg));
+                    System.out.println("After decoding and error checking message is :- "+ Dto.binaryToString(actual_msg));
                     if(clientMessage.equals("bye")){
                     break;
                     }
@@ -72,7 +72,7 @@ class ServerClientThread extends Thread {
       outStream.close();
       serverClient.close();
     }catch(Exception ex){
-     // System.out.println(ex);
+      //System.out.println(ex);
     }finally{
       System.out.println("Client - " + clientNo + " exit!! ");
     }

@@ -43,13 +43,14 @@ public class TCPClient {
              }
             //Adding 4-bit header of the data-link layer
             String finalString = Dto.headGenerator(crc_generated_string);
+            finalString = Dto.Manchester(finalString);
             System.out.println("Encoded message sent to the server is: " + finalString);
       
       
       outStream.writeUTF(finalString);
       outStream.flush();
       serverMessage=inStream.readUTF();
-      System.out.println(serverMessage);
+      System.out.println("The reply from the server is :- " + serverMessage);
     }while(!clientMessage.equals("bye"));
     outStream.close();
     outStream.close();

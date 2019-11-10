@@ -99,7 +99,30 @@ public class Dto {
                 return refined_msg;
     }
     
+    public static String Manchester(String str){
+        String final_msg="";
+        for(int i=0;i<str.length();i++)
+        {
+            if(str.charAt(i)=='0')
+                final_msg += "-11";
+            else
+                final_msg += "1-1";
+        }
+        return final_msg;
+    }
    
+    public static String ManchesterDecoder(String str){
+        String final_str="";
+        for(int i=0;i<str.length();i+=3)
+        {
+            String sub = str.substring(i,i+3);
+            if(sub.equals("-11"))
+                final_str+="0";
+            else
+                final_str+="1";
+        }
+        return final_str;
+    }
     
     
 }
