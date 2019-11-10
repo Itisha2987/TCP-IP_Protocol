@@ -83,11 +83,20 @@ public class CRC {
     return false;
     }
     
+    public static String removeCRCCode(String str){
+    String res="";
+     for(int i=0;i<str.length();i+=20){
+     String temp = str.substring(i,Math.min(i+20,str.length()));
+     res=res+temp.substring(0, temp.length()-4);
+    }
+     return res;
+    }
+    
   /*  public static void main(String[] args) {
     String data = "100100";
     String new_data=data+code;
     String rem=mod2Div(new_data,divisor);
     System.out.print(rem);
     }*/
-}
+ }
 

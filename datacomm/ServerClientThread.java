@@ -46,16 +46,20 @@ class ServerClientThread extends Thread {
                  outStream.flush();
                 }
                 else{
+                    String actual_msg = CRC.removeCRCCode(refined_msg);
+                    System.out.println("After decoding and error detection message is "+ Dto.binaryToString(actual_msg));
+                    if(clientMessage.equals("bye")){
+                    break;
+                    }
+                    else{
                     System.out.println("Enter the reply");
 		Scanner myObj = new Scanner(System.in);
                 serverMessage = br.readLine();		
 		outStream.writeUTF(serverMessage);
                 outStream.flush();
                 }
+                }
       
-      
-      if(clientMessage.equals("bye"))
-           break;
      /* System.out.println("Enter Reply");
        serverMessage=br.readLine();
     //  serverMessage="From Server to Client-" + clientNo + " Square of " + clientMessage + " is " +squre;
@@ -66,7 +70,7 @@ class ServerClientThread extends Thread {
       outStream.close();
       serverClient.close();
     }catch(Exception ex){
-      System.out.println(ex);
+     // System.out.println(ex);
     }finally{
       System.out.println("Client -" + clientNo + " exit!! ");
     }
