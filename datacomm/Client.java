@@ -29,12 +29,21 @@ public class Client
 	    PrintWriter out= new PrintWriter(soc.getOutputStream(),true);
             String binaryString = Dto.stringToBinary(msg);
             System.out.println("Encoded message generated is: " + binaryString);
-            
+          
             //Genarting error in the encoded message
-             String error_generated_string = Dto.errorGenerator(binaryString);
-             
+             System.out.println("Generate error enter y if yes and n otherwise");
+             String e = myObj.nextLine();
+             String error_generated_string="";
+             String crc_generated_string;
+             if(e.equals("y")){
+             error_generated_string = Dto.errorGenerator(binaryString);
+              crc_generated_string= CRC.cRCGenerator(binaryString, error_generated_string, true);
+             }
+             else{
+              crc_generated_string = CRC.cRCGenerator(binaryString, error_generated_string, false);
+             }
             //Adding 4-bit header of the data-link layer
-            String finalString = Dto.headGenerator(error_generated_string);
+            String finalString = Dto.headGenerator(crc_generated_string);
             System.out.println("Encoded message sent to the server is: " + finalString);
             out.println(finalString);
 	    

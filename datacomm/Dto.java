@@ -77,9 +77,9 @@ public class Dto {
             while(s.length()<4)
                 s = "0"+s;
             String ans="";
-            for(int i=0;i<str.length();i+=16)
+            for(int i=0;i<str.length();i+=20)
             {
-                ans += s + str.substring(i,Math.min(i+16, str.length()));
+                ans += s + str.substring(i,Math.min(i+20, str.length()));
             }
             return ans;
     }
@@ -88,11 +88,11 @@ public class Dto {
         String refined_msg="";
         int n=1;
         System.out.println("The data received from the clients with data-link layer head in packets is: ");
-                for(int i=0;i<str.length();i+=20)
+                for(int i=0;i<str.length();i+=24)
                 {
-                    String temp = str.substring(i,Math.min(i+20,str.length()));
+                    String temp = str.substring(i,Math.min(i+24,str.length()));
                     System.out.println("Packet "+n+" is "+temp + " ");
-                    refined_msg += str.substring(i+4,Math.min(i+20,str.length()));
+                    refined_msg += str.substring(i+4,Math.min(i+24,str.length()));
                     n++;
                     //msg = msg.substring(4);
                 }

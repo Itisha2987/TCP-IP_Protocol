@@ -11,9 +11,9 @@ package datacomm;
  */
 public class CRC {
     
-    private static String divisor="1101";
-    private static String allZeroDivisor="0000";
-    private static String code="000";
+    private static String divisor="11011";
+    private static String allZeroDivisor="00000";
+    private static String code="0000";
     
     private static String xorr(String a,String b){
    String result="";
@@ -52,11 +52,42 @@ public class CRC {
     return tmp; 
     }
     
-    public static void main(String[] args) {
+    public static String cRCGenerator(String cmsg,String emsg,boolean isError){
+     String res="";
+        for(int i=0;i<cmsg.length();i+=16){
+         String temp = cmsg.substring(i,Math.min(i+16,cmsg.length()));
+         temp=temp+code;
+         String rem=mod2Div(temp,divisor);
+         for(int j=0;j<code.length();j++){
+             temp=temp.substring(0,temp.length()-1);
+         }
+         temp=temp+rem;
+         if(isError){
+         String t = emsg.substring(i,Math.min(i+16,emsg.length()));   
+         res=res+t;
+         }
+         else{
+         res=res+temp;
+         }
+        }
+        return res;
+    }
+    
+    public static boolean isErrorPresent(String str){
+    for(int i=0;i<str.length();i+=20){
+     String temp = str.substring(i,Math.min(i+20,str.length()));
+     String rem=mod2Div(temp,divisor);
+     if(!(rem.equals(code)))
+        return true;
+    }
+    return false;
+    }
+    
+  /*  public static void main(String[] args) {
     String data = "100100";
     String new_data=data+code;
     String rem=mod2Div(new_data,divisor);
     System.out.print(rem);
-    }
+    }*/
 }
 
